@@ -1,6 +1,8 @@
 from datetime import datetime
 from IPython import embed
 import numpy as np
+import jax
+import jax.numpy as jnp
 import torch
 import gym
 import gym_gmazes
@@ -12,6 +14,7 @@ import time
 from datetime import datetime
 import brax
 from brax import envs
+from brax import jumpy as jp
 from brax.envs import to_torch
 from brax.io import metrics
 from IPython import embed
@@ -20,13 +23,6 @@ import os
 import logging
 import xpag
 from xpag.plotting.basics import plot_episode_2d
-
-# have torch allocate on device first, to prevent JAX from swallowing up all the
-# GPU memory. By default JAX will pre-allocate 90% of the available GPU memory:
-# https://jax.readthedocs.io/en/latest/gpu_memory_allocation.html
-v = torch.ones(1, device='cuda')
-print(torch.cuda.memory_allocated(device='cuda'))
-
 
 def str2bool(val):
     if isinstance(val, bool):
@@ -161,6 +157,39 @@ def log_init(args, agent, gsetter, init_list, init_list_test):
 
 args = get_args('')
 
+datatype = xpag.tl.DataType.TORCH
+
+if datatype == xpag.tl.DataType.TORCH:
+    # have torch allocate on device first, to prevent JAX from swallowing up all the
+    # GPU memory. By default JAX will pre-allocate 90% of the available GPU memory:
+    # https://jax.readthedocs.io/en/latest/gpu_memory_allocation.html
+    v = torch.ones(1, device='cuda')
+    print(torch.cuda.memory_allocated(device='cuda'))
+
+env_name = "halfcheetah"  # @param ['ant', 'humanoid', 'fetch', 'grasp', 'halfcheetah', 'ur5e', 'reacher']
+env_fn = envs.create_fn(env_name=env_name)
+env = env_fn()
+state = env.reset(rng=jp.random_prngkey(seed=0))
+
+jit_env_reset = jax.jit(env.reset)
+jit_env_step = jax.jit(env.step)
+
+embed()
+
+# env_name = 'halfcheetah'
+# device = 'cuda'
+# episode_max_length = 1000
+# num_envs = 128
+# gym_name = f'brax-{env_name}-v0'
+# if gym_name not in gym.envs.registry.env_specs:
+#     entry_point = functools.partial(envs.create_gym_env, env_name=env_name)
+#     gym.register(gym_name, entry_point=entry_point)
+# env = gym.make(gym_name, batch_size=num_envs, episode_length=episode_max_length)
+# # automatically convert between jax ndarrays and torch tensors:
+# env = to_torch.JaxToTorchWrapper(env, device=device)
+# version = 'torch'
+# datatype = xpag.tl.DataType.TORCH
+
 # env_name = 'halfcheetah'
 # device = 'cuda'
 # episode_max_length = 1000
@@ -185,28 +214,29 @@ args = get_args('')
 #                walls=[])
 # datatype = xpag.tl.DataType.TORCH
 
-# device = 'cuda'
-# num_envs = 1024
-# episode_max_length = 50
-# env = gym.make("GMazeGoalSimple-v0",
-#                device=device,
-#                batch_size=num_envs,
-#                frame_skip=2,
-#                walls=None)
-# datatype = xpag.tl.DataType.TORCH
+device = 'cuda'
+num_envs = 1024
+episode_max_length = 50
+env = gym.make("GMazeGoalSimple-v0",
+               device=device,
+               batch_size=num_envs,
+               frame_skip=2,
+               walls=None)
+datatype = xpag.tl.DataType.TORCH
 
-device = 'cuda' if torch.cuda.is_available() else 'cpu'
-episode_max_length = 1000
-num_envs = 1
-env = gym.make('HalfCheetah-v3')
-version = 'numpy'
-datatype = xpag.tl.DataType.NUMPY
+# device = 'cuda' if torch.cuda.is_available() else 'cpu'
+# episode_max_length = 1000
+# num_envs = 1
+# env = gym.make('HalfCheetah-v3')
+# version = 'numpy'
+# datatype = xpag.tl.DataType.NUMPY
 
 
 # Set seeds
 if args.seed is not None:
     env.seed(args.seed)
-    torch.manual_seed(args.seed)
+    if datatype == xpag.tl.DataType.TORCH:
+        torch.manual_seed(args.seed)
     np.random.seed(args.seed)
 
 if isinstance(env, gym.Wrapper):
@@ -283,11 +313,11 @@ train_ratio = 1.
 batch_size = 256
 start_random_t = 0
 # eval_freq = 50 * 7
-eval_freq = 1000 * 5
-eval_episodes = 5
+eval_freq = 50 * 5
+eval_episodes = 1
 save_freq = 0
 
 xpag.tl.learn(agent, env, num_envs, episode_max_length,
               max_t, train_ratio, batch_size, start_random_t, eval_freq, eval_episodes,
               save_freq, replay_buffer, sampler, datatype, device, save_dir=save_dir,
-              save_episode=True, plot_function=plot_episode)
+              save_episode=False, plot_function=plot_episode)
