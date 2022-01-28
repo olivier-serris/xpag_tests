@@ -17,12 +17,14 @@ from brax import envs
 from brax import jumpy as jp
 from brax.envs import to_torch
 from brax.io import metrics
+from brax.io import torch
 from IPython import embed
 import argparse
 import os
 import logging
 import xpag
 from xpag.plotting.basics import plot_episode_2d
+
 
 def str2bool(val):
     if isinstance(val, bool):
@@ -166,29 +168,19 @@ if datatype == xpag.tl.DataType.TORCH:
     v = torch.ones(1, device='cuda')
     print(torch.cuda.memory_allocated(device='cuda'))
 
-env_name = "halfcheetah"  # @param ['ant', 'humanoid', 'fetch', 'grasp', 'halfcheetah', 'ur5e', 'reacher']
-env_fn = envs.create_fn(env_name=env_name)
-env = env_fn()
-state = env.reset(rng=jp.random_prngkey(seed=0))
-
-jit_env_reset = jax.jit(env.reset)
-jit_env_step = jax.jit(env.step)
-
-embed()
-
-# env_name = 'halfcheetah'
-# device = 'cuda'
-# episode_max_length = 1000
-# num_envs = 128
-# gym_name = f'brax-{env_name}-v0'
-# if gym_name not in gym.envs.registry.env_specs:
-#     entry_point = functools.partial(envs.create_gym_env, env_name=env_name)
-#     gym.register(gym_name, entry_point=entry_point)
-# env = gym.make(gym_name, batch_size=num_envs, episode_length=episode_max_length)
-# # automatically convert between jax ndarrays and torch tensors:
+env_name = 'halfcheetah'
+device = 'cuda'
+episode_max_length = 1000
+num_envs = 128
+gym_name = f'brax-{env_name}-v0'
+if gym_name not in gym.envs.registry.env_specs:
+    entry_point = functools.partial(envs.create_gym_env, env_name=env_name)
+    gym.register(gym_name, entry_point=entry_point)
+env = gym.make(gym_name, batch_size=num_envs, episode_length=episode_max_length)
+# automatically convert between jax ndarrays and torch tensors:
 # env = to_torch.JaxToTorchWrapper(env, device=device)
-# version = 'torch'
-# datatype = xpag.tl.DataType.TORCH
+version = 'torch'
+datatype = xpag.tl.DataType.JAX
 
 # env_name = 'halfcheetah'
 # device = 'cuda'
@@ -214,15 +206,15 @@ embed()
 #                walls=[])
 # datatype = xpag.tl.DataType.TORCH
 
-device = 'cuda'
-num_envs = 1024
-episode_max_length = 50
-env = gym.make("GMazeGoalSimple-v0",
-               device=device,
-               batch_size=num_envs,
-               frame_skip=2,
-               walls=None)
-datatype = xpag.tl.DataType.TORCH
+# device = 'cuda'
+# num_envs = 1024
+# episode_max_length = 50
+# env = gym.make("GMazeGoalSimple-v0",
+#                device=device,
+#                batch_size=num_envs,
+#                frame_skip=2,
+#                walls=None)
+# datatype = xpag.tl.DataType.TORCH
 
 # device = 'cuda' if torch.cuda.is_available() else 'cpu'
 # episode_max_length = 1000
@@ -311,7 +303,7 @@ plot_episode = functools.partial(
 max_t = int(1e6)
 train_ratio = 1.
 batch_size = 256
-start_random_t = 0
+start_random_t = 1
 # eval_freq = 50 * 7
 eval_freq = 50 * 5
 eval_episodes = 1
