@@ -7,9 +7,9 @@ from xpag.plotting.basics import plot_episode_2d
 
 gmaze_frame_skip = 2  # only used by gym-gmazes environments
 gmaze_walls = None  # only used by gym-gmazes environments
-# env_name = 'HalfCheetah-v3'
+env_name = 'HalfCheetah-v3'
 # env_name = 'brax-halfcheetah-v0'
-env_name = 'GMazeGoalDubins-v0'
+# env_name = 'GMazeGoalDubins-v0'
 num_envs = 2
 # episode_max_length = 1000
 episode_max_length = 50
@@ -38,10 +38,14 @@ plot_episode = functools.partial(
 max_t = int(1e6)
 train_ratio = 1.
 batch_size = 256
-start_random_t = 0
+# start_random_t = 0
+start_random_t = int(np.ceil(5_000 / num_envs))
 eval_freq = episode_max_length * 5
 eval_eps = int(np.ceil(5 / num_envs))
 save_freq = 0
+
+from IPython import embed
+embed()
 
 xpag.tl.learn(agent, env, num_envs, episode_max_length,
               max_t, train_ratio, batch_size, start_random_t, eval_freq, eval_eps,
