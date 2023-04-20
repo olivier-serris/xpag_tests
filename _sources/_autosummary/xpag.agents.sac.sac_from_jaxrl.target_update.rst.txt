@@ -1,0 +1,6 @@
+xpag.agents.sac.sac\_from\_jaxrl.target\_update
+===============================================
+
+.. currentmodule:: xpag.agents.sac.sac_from_jaxrl
+
+.. autofunction:: target_update

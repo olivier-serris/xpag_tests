@@ -1,0 +1,30 @@
+xpag.agents.sdqn.sdqn.SDQNSetter
+================================
+
+.. currentmodule:: xpag.agents.sdqn.sdqn
+
+.. autoclass:: SDQNSetter
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~SDQNSetter.load
+      ~SDQNSetter.reset
+      ~SDQNSetter.reset_done
+      ~SDQNSetter.save
+      ~SDQNSetter.step
+      ~SDQNSetter.write_config
+   
+   
+
+   
+   
+   

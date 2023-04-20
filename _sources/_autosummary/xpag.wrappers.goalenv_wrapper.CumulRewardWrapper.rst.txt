@@ -1,0 +1,44 @@
+xpag.wrappers.goalenv\_wrapper.CumulRewardWrapper
+=================================================
+
+.. currentmodule:: xpag.wrappers.goalenv_wrapper
+
+.. autoclass:: CumulRewardWrapper
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~CumulRewardWrapper.class_name
+      ~CumulRewardWrapper.close
+      ~CumulRewardWrapper.render
+      ~CumulRewardWrapper.reset
+      ~CumulRewardWrapper.reset_done
+      ~CumulRewardWrapper.step
+      ~CumulRewardWrapper.wrapper_spec
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~CumulRewardWrapper.action_space
+      ~CumulRewardWrapper.metadata
+      ~CumulRewardWrapper.np_random
+      ~CumulRewardWrapper.observation_space
+      ~CumulRewardWrapper.render_mode
+      ~CumulRewardWrapper.reward_range
+      ~CumulRewardWrapper.spec
+      ~CumulRewardWrapper.unwrapped
+   
+   

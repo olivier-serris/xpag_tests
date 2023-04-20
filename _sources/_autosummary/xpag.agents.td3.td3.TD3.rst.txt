@@ -1,0 +1,30 @@
+xpag.agents.td3.td3.TD3
+=======================
+
+.. currentmodule:: xpag.agents.td3.td3
+
+.. autoclass:: TD3
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~TD3.load
+      ~TD3.save
+      ~TD3.select_action
+      ~TD3.train_on_batch
+      ~TD3.value
+      ~TD3.write_config
+   
+   
+
+   
+   
+   

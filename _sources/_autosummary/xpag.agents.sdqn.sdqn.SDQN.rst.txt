@@ -1,0 +1,29 @@
+xpag.agents.sdqn.sdqn.SDQN
+==========================
+
+.. currentmodule:: xpag.agents.sdqn.sdqn
+
+.. autoclass:: SDQN
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~SDQN.load
+      ~SDQN.save
+      ~SDQN.select_action
+      ~SDQN.train_on_batch
+      ~SDQN.write_config
+   
+   
+
+   
+   
+   

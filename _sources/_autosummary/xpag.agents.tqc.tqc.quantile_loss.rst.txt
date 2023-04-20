@@ -1,0 +1,6 @@
+xpag.agents.tqc.tqc.quantile\_loss
+==================================
+
+.. currentmodule:: xpag.agents.tqc.tqc
+
+.. autofunction:: quantile_loss

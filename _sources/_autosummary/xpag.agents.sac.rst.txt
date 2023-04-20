@@ -1,0 +1,31 @@
+xpag.agents.sac
+===============
+
+.. automodule:: xpag.agents.sac
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+.. autosummary::
+   :toctree:
+   :template: custom-module-template.rst
+   :recursive:
+
+   xpag.agents.sac.sac
+   xpag.agents.sac.sac_from_jaxrl
+

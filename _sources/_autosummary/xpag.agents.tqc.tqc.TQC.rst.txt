@@ -1,0 +1,30 @@
+xpag.agents.tqc.tqc.TQC
+=======================
+
+.. currentmodule:: xpag.agents.tqc.tqc
+
+.. autoclass:: TQC
+   :members:
+   :show-inheritance:
+   :inherited-members:
+   :special-members: __call__, __add__, __mul__
+
+   
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :nosignatures:
+   
+      ~TQC.load
+      ~TQC.save
+      ~TQC.select_action
+      ~TQC.train_on_batch
+      ~TQC.value
+      ~TQC.write_config
+   
+   
+
+   
+   
+   

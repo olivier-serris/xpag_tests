@@ -1,0 +1,6 @@
+xpag.agents.sac.sac\_from\_jaxrl.update\_temperature
+====================================================
+
+.. currentmodule:: xpag.agents.sac.sac_from_jaxrl
+
+.. autofunction:: update_temperature

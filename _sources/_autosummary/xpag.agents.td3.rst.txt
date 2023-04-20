@@ -1,0 +1,30 @@
+xpag.agents.td3
+===============
+
+.. automodule:: xpag.agents.td3
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+.. autosummary::
+   :toctree:
+   :template: custom-module-template.rst
+   :recursive:
+
+   xpag.agents.td3.td3
+

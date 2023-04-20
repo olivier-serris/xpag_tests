@@ -1,0 +1,30 @@
+xpag.agents.sdqn
+================
+
+.. automodule:: xpag.agents.sdqn
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
+.. autosummary::
+   :toctree:
+   :template: custom-module-template.rst
+   :recursive:
+
+   xpag.agents.sdqn.sdqn
+
